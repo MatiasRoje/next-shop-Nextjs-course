@@ -1,13 +1,19 @@
 // Option 1: fetch products on the server side
+import { GetStaticProps } from "next";
 import Title from "@/components/Title";
+import { getProducts, Product } from "@/lib/products";
 import Head from "next/head";
 
-const products = [
-  { id: 1, title: "First Product" },
-  { id: 2, title: "Second Product" },
-];
+interface HomePageProps {
+  products: Product[];
+}
 
-const HomePage: React.FC = () => {
+export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
+  const products = await getProducts();
+  return { props: { products } };
+};
+
+const HomePage: React.FC<HomePageProps> = ({ products }) => {
   console.log("[HomePage] render:", products);
 
   return (

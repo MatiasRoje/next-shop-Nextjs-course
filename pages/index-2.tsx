@@ -1,13 +1,16 @@
 // Option 2: fetch products on the client side
 import Title from "@/components/Title";
+import { Product, getProducts } from "@/lib/products";
 import Head from "next/head";
-
-const products = [
-  { id: 1, title: "First Product" },
-  { id: 2, title: "Second Product" },
-];
+import { useEffect, useState } from "react";
 
 const HomePage: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    getProducts().then(setProducts);
+  }, []);
+
   console.log("[HomePage] render:", products);
 
   return (
