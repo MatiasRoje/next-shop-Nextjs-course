@@ -1,4 +1,4 @@
-// Option 1: fetch products on the server side
+// Option 1a: fetch products on the server side with getStaticProps
 import { GetStaticProps } from "next";
 import Title from "@/components/Title";
 import { getProducts, Product } from "@/lib/products";
