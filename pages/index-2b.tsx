@@ -1,7 +1,7 @@
 // Option 2b: fetch products on the client side with useEffect
 // but directly from an internal API
 import Title from "@/components/Title";
-import { Product, getProducts } from "@/lib/products";
+import { Product } from "@/lib/products";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 
