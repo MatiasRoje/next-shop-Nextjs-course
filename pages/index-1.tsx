@@ -1,3 +1,4 @@
+// Option 1: fetch products on the server side
 import Title from "@/components/Title";
 import Head from "next/head";
 
