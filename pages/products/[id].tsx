@@ -18,7 +18,7 @@ export const getStaticPaths: GetStaticPaths<ProductPageParams> = async () => {
     paths: products.map((product) => ({
       params: { id: product.id.toString() },
     })),
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
@@ -26,10 +26,15 @@ export const getStaticProps: GetStaticProps<
   ProductPageProps,
   ProductPageParams
 > = async ({ params: { id } }) => {
-  const product = await getProduct(id);
-  return {
-    props: { product },
-  };
+  try {
+    const product = await getProduct(id);
+    return {
+      props: { product },
+      revalidate: 30,
+    };
+  } catch (err) {
+    return { notFound: true };
+  }
 };
 
 const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
