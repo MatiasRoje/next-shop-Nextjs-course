@@ -3,9 +3,11 @@ import Field from "@/components/Field";
 import Input from "@/components/Input";
 import Page from "@/components/Page";
 import { fetchJson } from "@/lib/api";
+import { useRouter } from "next/router";
 import { FormEventHandler, useState } from "react";
 
 const SignInPage: React.FC = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState({ loading: false, error: false });
@@ -21,6 +23,7 @@ const SignInPage: React.FC = () => {
       });
       setStatus({ loading: false, error: false });
       console.log("sign-in:", res);
+      router.push("/");
     } catch (err) {
       setStatus({ loading: false, error: true });
     }

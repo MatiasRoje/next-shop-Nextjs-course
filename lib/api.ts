@@ -10,7 +10,7 @@ export class ApiError extends Error {
 
 export async function fetchJson(
   url: string,
-  options: RequestInit
+  options?: RequestInit
 ): Promise<any> {
   const res = await fetch(url, options);
   if (!res.ok) {
