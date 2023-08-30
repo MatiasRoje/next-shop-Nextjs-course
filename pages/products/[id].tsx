@@ -1,7 +1,9 @@
+import Page from "@/components/Page";
 import Title from "@/components/Title";
+import { ApiError } from "@/lib/api";
 import { Product, getProduct, getProducts } from "@/lib/products";
 import { GetStaticPaths, GetStaticProps } from "next";
-import Head from "next/head";
+import Image from "next/image";
 import { ParsedUrlQuery } from "querystring";
 
 interface ProductPageParams extends ParsedUrlQuery {
@@ -30,24 +32,30 @@ export const getStaticProps: GetStaticProps<
     const product = await getProduct(id);
     return {
       props: { product },
-      revalidate: 30,
+      revalidate: parseInt(process.env.REVALIDATE_SECONDS),
     };
   } catch (err) {
-    return { notFound: true };
+    if (err instanceof ApiError && err.status === 404) {
+      return { notFound: true };
+    }
+    throw err;
   }
 };
 
 const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
   return (
-    <>
-      <Head>
-        <title>{product.title} - Next Shop</title>
-      </Head>
-      <main>
-        <Title>{product.title}</Title>
-        <p>{product.description}</p>
-      </main>
-    </>
+    <Page title={product.title}>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="flex flex-col justify-center items-center p-4">
+          <Title>{product.title}</Title>
+          <Image src={product.pictureUrl} alt="" width={640} height={480} />
+        </div>
+        <div className="p-4 flex flex-col justify-center gap-4">
+          <p className="text-justify">{product.description}</p>
+          <p className="font-bold">{product.price}</p>
+        </div>
+      </div>
+    </Page>
   );
 };
 

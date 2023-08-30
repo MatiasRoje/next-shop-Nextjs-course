@@ -1,12 +1,15 @@
+import ProductCard from "@/components/ProductCard";
 import { fetchJson } from "./api";
 
 export interface Product {
   id: number;
   title: string;
   description: string;
+  price: string;
+  pictureUrl: string;
 }
 
-const CMS_URL = "http://localhost:1337";
+const { CMS_URL } = process.env;
 
 export async function getProduct(id: string): Promise<Product> {
   const product = await fetchJson(`${CMS_URL}/products/${id}`);
@@ -23,5 +26,7 @@ function stripProduct(product: any): Product {
     id: product.id,
     title: product.title,
     description: product.description,
+    price: `€${product.price.toFixed(2)}`,
+    pictureUrl: `${CMS_URL}${product.picture.url}`,
   };
 }
