@@ -13,12 +13,11 @@ const SignInPage: React.FC = () => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     setStatus({ loading: true, error: false });
-    await sleep(2000);
     try {
-      const res = await fetchJson("http://localhost:1337/auth/local", {
+      const res = await fetchJson("/api/login", {
         method: "POST",
         headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ identifier: email, password }),
+        body: JSON.stringify({ email, password }),
       });
       setStatus({ loading: false, error: false });
       console.log("sign-in:", res);
