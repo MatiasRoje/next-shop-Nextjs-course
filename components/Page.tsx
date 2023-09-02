@@ -16,10 +16,7 @@ const Page: React.FC<PageProps> = ({ title, children }) => {
       <header>
         <NavBar />
       </header>
-      <main className="px-6 py-4">
-        <Title>{title}</Title>
-        {children}
-      </main>
+      <main className="px-6 py-4">{children}</main>
     </>
   );
 };
