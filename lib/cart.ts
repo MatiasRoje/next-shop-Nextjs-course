@@ -6,6 +6,7 @@ export interface CartItem {
     price: number;
   };
   quantity: number;
+  total: number;
 }
 
 export function stripCartItem(cartItem: any): CartItem {
@@ -17,5 +18,6 @@ export function stripCartItem(cartItem: any): CartItem {
       price: cartItem.product.price,
     },
     quantity: cartItem.quantity,
+    total: cartItem.product.price * cartItem.quantity,
   };
 }
