@@ -1,5 +1,7 @@
+import AddToCartWidget from "@/components/AddToCartWidget";
 import Page from "@/components/Page";
 import Title from "@/components/Title";
+import { useUser } from "@/hooks/user";
 import { ApiError } from "@/lib/api";
 import { Product, getProduct, getProducts } from "@/lib/products";
 import { GetStaticPaths, GetStaticProps } from "next";
@@ -43,6 +45,8 @@ export const getStaticProps: GetStaticProps<
 };
 
 const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
+  const user = useUser();
+
   return (
     <Page title={product.title}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -53,6 +57,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
         <div className="p-4 flex flex-col justify-center gap-4">
           <p className="text-justify">{product.description}</p>
           <p className="font-bold">{product.price}</p>
+          {user && <AddToCartWidget productId={product.id} />}
         </div>
       </div>
     </Page>
