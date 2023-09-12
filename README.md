@@ -1,1 +1,1 @@
-Shop project from the course 'Next.js by Example' on Udemy by Mirko Nasato. It's not deployed because it would require deploying the backend to a server as well, as this project uses Strapi for storing the database.
+Shop project from the course 'Next.js by Example' on Udemy by Mirko Nasato. It's not deployed because it would also require deploying the backend to a paid service, as this project uses Strapi for storing the database.
